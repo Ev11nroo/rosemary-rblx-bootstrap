@@ -44,3 +44,7 @@ async function check() {
         downloadAndUnzip(hash);
     }
 }
+
+module.exports = {
+    check,
+}
