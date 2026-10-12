@@ -4,7 +4,7 @@ const { exec } = require("child_process");
 const binary = config.rosemary.binary;
 let prefix = config.rosemary.prefix;
 
-async function runClient(uri) {
+function checkOptions() {
     if (binary == null || binary === "") {
         console.error("Rosemary binary cannot be blank, please specifiy one");
         return 1;
@@ -13,6 +13,12 @@ async function runClient(uri) {
     if (prefix == null || prefix === "") {
         prefix = "~/.local/share/rosemary/prefixes/default";
     }
+
+    return 0;
+}
+
+async function runClient(uri) {
+    if (checkOptions() != 0) return 1;
 
     let command = `ROSEMARY_PREFIX=${prefix} ${binary} ${__dirname}/client/RobloxPlayer.app`;
 
