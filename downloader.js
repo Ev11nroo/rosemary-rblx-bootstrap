@@ -1,5 +1,14 @@
-let consts = require("./consts.json");
 const fs = require("fs");
+let consts = {};
+
+try {
+    consts = require("./consts.json");
+} catch {
+    conts = {
+        "version": ""
+    }
+}
+
 const { Readable } = require("stream");
 const { finished } = require("stream/promises");
 const { execSync } = require("child_process");
@@ -37,7 +46,7 @@ async function downloadAndUnzip(hash) {
 
     // bandaid fix: make everything executable
     await execSync(`chmod -R +x ${expectedPlayerPath}`);
-    
+
     console.log("Installation finished");
 }
 
