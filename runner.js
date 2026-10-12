@@ -22,3 +22,7 @@ function runClient(uri) {
 
     exec(command);
 }
+
+module.exports = {
+    runClient,
+}
