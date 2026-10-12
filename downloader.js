@@ -5,6 +5,8 @@ const { finished } = require("stream/promises");
 
 const unzipper = require("unzipper");
 
+const expectedPlayerPath = `${__dirname}/client/RobloxPlayer.app`
+
 // get version from https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer
 // then download compressed from https://setup.rbxcdn.com/mac/<version>-RobloxPlayer.zip
 
@@ -20,7 +22,7 @@ async function downloadAndUnzip(hash) {
     const request = await fetch(`https://setup.rbxcdn.com/mac/${hash}-RobloxPlayer.zip`);
 
     if (!fs.existsSync(`${__dirname}/client`)) fs.mkdirSync(`${__dirname}/client`);
-    if (fs.existsSync(`${__dirname}/client`)) fs.rmSync(`${__dirname}/client/RobloxPlayer.app`, { recursive: true, force: true }); // this will delete someones computer
+    if (fs.existsSync(expectedPlayerPath)) fs.rmSync(expectedPlayerPath, { recursive: true, force: true }); // this will delete someones computer
 
     const stream = fs.createWriteStream(`${__dirname}/client/RobloxPlayer.zip`);
     await finished(Readable.fromWeb(request.body).pipe(stream));
@@ -36,7 +38,7 @@ async function downloadAndUnzip(hash) {
 async function check() {
     const hash = await getVersionHash();
 
-    if (consts.version != hash) {
+    if (consts.version != hash || !fs.existsSync(expectedPlayerPath)) {
         consts.version = hash;
         fs.writeFile(`${__dirname}/consts.json`, JSON.stringify(consts, null, 4), (error) => { if (error) console.error(error) });
 
