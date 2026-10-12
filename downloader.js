@@ -36,7 +36,9 @@ async function downloadAndUnzip(hash) {
     fs.rmSync(`${__dirname}/client/RobloxPlayer.zip`);
 
     // bandaid fix: make everything executable
-    execSync(`chmod -R +x ${expectedPlayerPath}`)
+    await execSync(`chmod -R +x ${expectedPlayerPath}`);
+    
+    console.log("Installation finished");
 }
 
 async function check() {
@@ -47,7 +49,7 @@ async function check() {
         fs.writeFileSync(`${__dirname}/consts.json`, JSON.stringify(consts, null, 4), (error) => { if (error) console.error(error) });
 
         console.log("Downloading Roblox client");
-        downloadAndUnzip(hash);
+        await downloadAndUnzip(hash);
     }
 }
 
