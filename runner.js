@@ -4,7 +4,7 @@ const { exec } = require("child_process");
 const binary = config.rosemary.binary;
 let prefix = config.rosemary.prefix;
 
-function runClient(uri) {
+async function runClient(uri) {
     if (binary == null || binary === "") {
         console.error("Rosemary binary cannot be blank, please specifiy one");
         return 1;
@@ -20,7 +20,8 @@ function runClient(uri) {
         command += ` "${uri}"`;
     }
 
-    exec(command);
+    console.log("Launching Roblox")
+    await exec(command);
 }
 
 module.exports = {
