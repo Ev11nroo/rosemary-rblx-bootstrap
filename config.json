@@ -1,0 +1,6 @@
+{
+    "rosemary": {
+        "binary": "/home/roo/rosemary/target/release/rosemary",
+        "prefix": "/home/roo/.local/share/rosemary/default"
+    }
+}
