@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Ev11nroo/rosemary-rblx-bootstrap/issues"
   },
-  "homepage": "https://github.com/Ev11nroo/rosemary-rblx-bootstrap#readme"
+  "homepage": "https://github.com/Ev11nroo/rosemary-rblx-bootstrap#readme",
+  "dependencies": {
+    "unzipper": "^0.12.5"
+  }
 }
