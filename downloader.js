@@ -2,6 +2,7 @@ let consts = require("./consts.json");
 const fs = require("fs");
 const { Readable } = require("stream");
 const { finished } = require("stream/promises");
+const { execSync } = require("child_process");
 
 const unzipper = require("unzipper");
 
@@ -33,6 +34,9 @@ async function downloadAndUnzip(hash) {
     await file.extract({ path: `${__dirname}/client/` });
 
     fs.rmSync(`${__dirname}/client/RobloxPlayer.zip`);
+
+    // bandaid fix: make everything executable
+    execSync(`chmod -R +x ${expectedPlayerPath}`)
 }
 
 async function check() {
@@ -40,7 +44,7 @@ async function check() {
 
     if (consts.version != hash || !fs.existsSync(expectedPlayerPath)) {
         consts.version = hash;
-        fs.writeFile(`${__dirname}/consts.json`, JSON.stringify(consts, null, 4), (error) => { if (error) console.error(error) });
+        fs.writeFileSync(`${__dirname}/consts.json`, JSON.stringify(consts, null, 4), (error) => { if (error) console.error(error) });
 
         console.log("Downloading Roblox client");
         downloadAndUnzip(hash);
