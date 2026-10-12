@@ -1,0 +1,6 @@
+{
+    "rosemary": {
+        "binary": "/path/to/binary/rosemary",
+        "prefix": "~/.local/share/rosemary/prefixes/default"
+    }
+}
