@@ -37,7 +37,7 @@ async function updatePrefix() {
 
 async function runClient(uri, shouldDoStudio) {
     if (checkOptions() != 0) return 1;
-    if (shouldDoStudio !== null) shouldDoStudio = false;
+    if (shouldDoStudio == null) shouldDoStudio = false;
 
     await updatePrefix();
 
