@@ -4,7 +4,8 @@
   "description": "simple (cli) roblox bootstraper that uses rosemary",
   "main": "index.js",
   "scripts": {
-    "run": "node index.js",
+    "player": "node index.js player",
+    "studio": "node index.js studio",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
