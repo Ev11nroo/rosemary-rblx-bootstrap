@@ -35,17 +35,20 @@ async function updatePrefix() {
     }
 }
 
-async function runClient(uri) {
+async function runClient(uri, shouldDoStudio) {
     if (checkOptions() != 0) return 1;
+    if (shouldDoStudio !== true || shouldDoStudio !== false) shouldDoStudio = false;
+    
     await updatePrefix();
 
-    let command = `ROSEMARY_PREFIX=${prefix} ${binary} ${__dirname}/client/RobloxPlayer.app`;
+    let command = `ROSEMARY_PREFIX=${prefix} ${binary} ${__dirname}/client/TEMPAPPNAME.app`;
+    command = command.replace("TEMPAPPNAME", shouldDoStudio ? "RobloxStudio" : "RobloxPlayer");
 
     if (uri != null || uri != undefined) {
         command += ` "${uri}"`;
     }
 
-    console.log("Launching Roblox")
+    console.log(`Launching Roblox ${shouldDoStudio ? "Studio" : "Player"}`);
     await exec(command);
 }
 
