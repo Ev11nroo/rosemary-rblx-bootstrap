@@ -18,6 +18,9 @@ const unzipper = require("unzipper");
 const expectedPlayerPath = `${__dirname}/client/RobloxPlayer.app`;
 const expectedPlayerZipPath = `${__dirname}/client/RobloxPlayer.zip`;
 
+const expectedStudioPath = `${__dirname}/client/RobloxStudio.app`;
+const expectedStudioZipPath = `${__dirname}/client/RobloxStudioApp.zip`;
+
 // get version from https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer
 // then download compressed from https://setup.rbxcdn.com/mac/<version>-RobloxPlayer.zip
 
