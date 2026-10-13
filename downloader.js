@@ -17,10 +17,7 @@ const { execSync } = require("child_process");
 const unzipper = require("unzipper");
 
 const expectedPlayerPath = `${__dirname}/client/RobloxPlayer.app`;
-const expectedPlayerZipPath = `${__dirname}/client/RobloxPlayer.zip`;
-
 const expectedStudioPath = `${__dirname}/client/RobloxStudio.app`;
-const expectedStudioZipPath = `${__dirname}/client/RobloxStudioApp.zip`;
 
 let downloadStudio = false;
 
@@ -42,15 +39,14 @@ async function getVersionHash() {
 }
 
 async function downloadAndUnzip(hash) {
-    let appPath, zipPath, url = "";
+    let appPath, url = "";
+    let zipPath = `${__dirname}/client/dl.zip`
 
     if (downloadStudio) {
         appPath = expectedStudioPath;
-        zipPath = expectedStudioZipPath;
         url = `https://setup.rbxcdn.com/mac/${hash}-RobloxStudioApp.zip`;
     } else {
         appPath = expectedPlayerPath;
-        zipPath = expectedPlayerZipPath;
         url = `https://setup.rbxcdn.com/mac/${hash}-RobloxPlayer.zip`;
     }
 
