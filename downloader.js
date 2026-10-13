@@ -93,8 +93,6 @@ async function check(shouldDoStudio) {
     }
 }
 
-check(true)
-
 module.exports = {
     check,
 }
