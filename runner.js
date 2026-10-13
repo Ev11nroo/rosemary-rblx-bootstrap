@@ -37,8 +37,8 @@ async function updatePrefix() {
 
 async function runClient(uri, shouldDoStudio) {
     if (checkOptions() != 0) return 1;
-    if (shouldDoStudio !== true || shouldDoStudio !== false) shouldDoStudio = false;
-    
+    if (shouldDoStudio !== null) shouldDoStudio = false;
+
     await updatePrefix();
 
     let command = `ROSEMARY_PREFIX=${prefix} ${binary} ${__dirname}/client/TEMPAPPNAME.app`;
