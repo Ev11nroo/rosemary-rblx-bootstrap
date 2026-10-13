@@ -7,7 +7,7 @@ const binary = config.rosemary.binary;
 let prefix = config.rosemary.prefix;
 
 function checkOptions() {
-    if (binary == null || binary === "") {
+    if (binary == null || binary === "" || binary == "/path/to/binary/rosemary") {
         console.error("Rosemary binary cannot be blank, please specifiy one");
         return 1;
     }
