@@ -58,7 +58,7 @@ async function downloadAndUnzip(hash) {
     const request = await fetch(url);
 
     if (!fs.existsSync(`${__dirname}/client`)) fs.mkdirSync(`${__dirname}/client`);
-    if (fs.existsSync(appPath)) fs.rmSync(appPath, { recursive: true, force: true }); // this will delete someones computer
+    if (fs.existsSync(appPath) && appPath !== "") fs.rmSync(appPath, { recursive: true, force: true }); // this will delete someones computer
 
     const stream = fs.createWriteStream(zipPath);
     await finished(Readable.fromWeb(request.body).pipe(stream));
