@@ -25,8 +25,14 @@ cp config.example.json config.json
 open config.json
 ```
 
-then run the program with:
+then launch player with:
 
 ```bash
-npm run run
+npm run player
+```
+
+or studio with:
+
+```bash
+npm run studio
 ```
