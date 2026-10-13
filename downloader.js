@@ -15,7 +15,8 @@ const { execSync } = require("child_process");
 
 const unzipper = require("unzipper");
 
-const expectedPlayerPath = `${__dirname}/client/RobloxPlayer.app`
+const expectedPlayerPath = `${__dirname}/client/RobloxPlayer.app`;
+const expectedPlayerZipPath = `${__dirname}/client/RobloxPlayer.zip`;
 
 // get version from https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer
 // then download compressed from https://setup.rbxcdn.com/mac/<version>-RobloxPlayer.zip
@@ -34,15 +35,15 @@ async function downloadAndUnzip(hash) {
     if (!fs.existsSync(`${__dirname}/client`)) fs.mkdirSync(`${__dirname}/client`);
     if (fs.existsSync(expectedPlayerPath)) fs.rmSync(expectedPlayerPath, { recursive: true, force: true }); // this will delete someones computer
 
-    const stream = fs.createWriteStream(`${__dirname}/client/RobloxPlayer.zip`);
+    const stream = fs.createWriteStream(expectedPlayerZipPath);
     await finished(Readable.fromWeb(request.body).pipe(stream));
 
     // unzip compressed client and delete zip
     console.log("Decompressing Roblox client")
-    const file = await unzipper.Open.file(`${__dirname}/client/RobloxPlayer.zip`);
+    const file = await unzipper.Open.file(expectedPlayerZipPath);
     await file.extract({ path: `${__dirname}/client/` });
 
-    fs.rmSync(`${__dirname}/client/RobloxPlayer.zip`);
+    fs.rmSync(expectedPlayerZipPath);
 
     // bandaid fix: make everything executable
     await execSync(`chmod -R +x ${expectedPlayerPath}`);
