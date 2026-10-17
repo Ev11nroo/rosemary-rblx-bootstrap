@@ -42,7 +42,7 @@ async function runClient(uri, shouldDoStudio) {
     await updatePrefix();
 
     let command = `ROSEMARY_PREFIX=${prefix} ${binary} ${__dirname}/client/TEMPAPPNAME.app`;
-    command = command.replace("TEMPAPPNAME", shouldDoStudio ? "RobloxStudio" : "RobloxPlayer");
+    command = command.replace("TEMPAPPNAME", shouldDoStudio ? "RobloxStudio" : "Roblox");
 
     if (uri != null || uri != undefined || uri != "") {
         command += ` "${uri}"`;

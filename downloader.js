@@ -16,7 +16,7 @@ const { execSync } = require("child_process");
 
 const unzipper = require("unzipper");
 
-const expectedPlayerPath = `${__dirname}/client/RobloxPlayer.app`;
+const expectedPlayerPath = `${__dirname}/client/Roblox.app`;
 const expectedStudioPath = `${__dirname}/client/RobloxStudio.app`;
 
 let downloadStudio = false;
@@ -63,6 +63,8 @@ async function downloadAndUnzip(hash) {
     console.log(`Decompressing Roblox ${downloadStudio ? "Studio" : "Player"}`)
     const file = await unzipper.Open.file(zipPath);
     await file.extract({ path: `${__dirname}/client/` });
+
+    if (!downloadStudio) fs.renameSync(`${__dirname}/client/RobloxPlayer.app`, expectedPlayerPath);
 
     fs.rmSync(zipPath);
 
