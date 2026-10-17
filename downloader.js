@@ -16,6 +16,7 @@ const { finished } = require("stream/promises");
 const { execSync } = require("child_process");
 
 const unzipper = require("unzipper");
+const { channelLink } = require("discord.js");
 
 const expectedPlayerPath = `${__dirname}/client/Roblox.app`;
 const expectedStudioPath = `${__dirname}/client/RobloxStudio.app`;
@@ -48,6 +49,7 @@ async function getChannel() {
 }
 
 async function getVersionHash(channel) {
+    if (channel == null) chanel = "LIVE";
     let request = null;
 
     if (downloadStudio) {
@@ -101,7 +103,8 @@ async function check(shouldDoStudio) {
     downloadStudio = (shouldDoStudio == true) ? true : false;
 
     let doDownload = false;
-    const hash = await getVersionHash();
+    const channel = await getChannel();
+    const hash = await getVersionHash(channel);
     
     if (downloadStudio && (consts.studioVersion != hash || !fs.existsSync(expectedStudioPath))) {
         consts.studioVersion = hash;
@@ -112,7 +115,7 @@ async function check(shouldDoStudio) {
     }
 
     if (doDownload) {
-        console.log(`Downloading Roblox ${downloadStudio ? "Studio" : "Player"}`)
+        console.log(`Downloading Roblox ${downloadStudio ? "Studio" : "Player"} (${channel})`)
         fs.writeFileSync(`${__dirname}/consts.json`, JSON.stringify(consts, null, 4), (error) => { if (error) console.error(error) });
         await downloadAndUnzip(hash);
     }
