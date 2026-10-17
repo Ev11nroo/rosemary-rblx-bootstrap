@@ -1,3 +1,4 @@
+const _config = require("./config.json");
 const { check } = require("./downloader");
 const { runClient } = require("./runner");
 
