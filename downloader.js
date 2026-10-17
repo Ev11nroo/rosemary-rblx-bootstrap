@@ -38,24 +38,29 @@ async function getChannel() {
     };
 
     if (downloadStudio) {
-        request = await fetch("https://clientsettings.roblox.com/v2/user-channel/MacStudio", options);
+        request = await fetch("https://clientsettingscdn.roblox.com/v2/user-channel?binaryType=MacStudio", options);
     } else {
-        request = await fetch("https://clientsettings.roblox.com/v2/user-channel/MacPlayer", options);
+        request = await fetch("https://clientsettingscdn.roblox.com/v2/user-channel?binaryType=MacPlayer", options);
     }
 
     const data = await request.json();
+    const channel = data.channelName;
 
-    return data.channelName;
+    if (channel == undefined || channel == null) {
+        return "LIVE";
+    }
+
+    return channel;
 }
 
 async function getVersionHash(channel) {
-    if (channel == null) chanel = "LIVE";
+    if (channel == null || channel == undefined) chanel = "LIVE";
     let request = null;
 
     if (downloadStudio) {
-        request = await fetch("https://clientsettingscdn.roblox.com/v2/client-version/MacStudio");
+        request = await fetch(`https://clientsettingscdn.roblox.com/v2/client-version/MacStudio/channel/${channel}`);
     } else {
-        request = await fetch("https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer");
+        request = await fetch(`https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer/channel/${channel}`);
     }
 
     const data = await request.json();
