@@ -1,6 +1,7 @@
 const _config = require("./config.json");
 const { check } = require("./downloader");
 const { runClient } = require("./runner");
+const { getCookieFromUriAndSave } = require("./cookie");
 
 let uri = "";
 let updateOnly = false;
@@ -30,6 +31,7 @@ if (process.argv[3] != null) {
 }
 
 (async () => {
+    if (uri !== "") await getCookieFromUriAndSave(uri);
     await check(shouldDoStudio);
     if (!updateOnly) await runClient(uri, shouldDoStudio);
 })();

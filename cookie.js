@@ -40,3 +40,7 @@ async function getCookieFromUriAndSave(uri) {
     conifg.cookie = cookie;
     fs.writeFile("./config.json", JSON.stringify(config, null, 4), (err) => { if (err) console.log(err); });
 }
+
+module.exports = {
+    getCookieFromUriAndSave,
+}
