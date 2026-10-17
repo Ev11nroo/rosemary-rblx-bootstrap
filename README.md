@@ -6,6 +6,12 @@ use [nutmeg](https://github.com/frolleks/nutmeg) for an easier time instead of t
 
 not related to rosemary or roblox
 
+# features
+
+- automatic downloader of player + studio with beta channel support
+- launches applications with rosemary
+- thats it
+
 # get starte d
 
 get repository and install dependecies
