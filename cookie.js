@@ -1,5 +1,13 @@
 const fs = require("fs");
 
+function trimCookie(cookie) {
+    const regex = new RegExp("\.ROBLOSECURITY.*?;");
+
+    cookie = cookie.match(regex)[0];
+
+    return cookie;
+}
+
 function getAuthTicketFromUri(uri) {
     const regex = new RegExp("gameinfo:.*?(?=\\+)");
 
