@@ -16,7 +16,6 @@ const { finished } = require("stream/promises");
 const { execSync } = require("child_process");
 
 const unzipper = require("unzipper");
-const { channelLink } = require("discord.js");
 
 const expectedPlayerPath = `${__dirname}/client/Roblox.app`;
 const expectedStudioPath = `${__dirname}/client/RobloxStudio.app`;
