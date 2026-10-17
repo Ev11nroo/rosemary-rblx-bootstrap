@@ -18,6 +18,43 @@ function getAuthTicketFromUri(uri) {
     return uri;
 }
 
+async function getCsrf() {
+    const options = {
+        method: "POST",
+        headers: {
+            "Cookie": `${config.cookie}`,
+            "referer": "https://www.roblox.com/",
+        }
+    };
+    const request = await fetch("https://auth.roblox.com/v2/logout", options);
+
+    const csrf = await request.headers.get("x-csrf-token");
+    return csrf;
+}
+
+async function recreateUri(originalUri) {
+    if (originalUri == null) return 0;
+
+    const originalAuthTicket = getAuthTicketFromUri(originalUri);
+    const csrf = await getCsrf();
+    const options = {
+        method: "POST",
+        headers: {
+            "Cookie": `${config.cookie}`,
+            "referer": "https://www.roblox.com/",
+            "x-csrf-token": `${csrf}`,
+        },
+        body: ""
+    };
+
+    const request = await fetch("https://auth.roblox.com/v1/authentication-ticket", options);
+
+    const newAuthTicket = request.headers.get("rbx-authentication-ticket");
+    const newUri = originalUri.replace(originalAuthTicket, newAuthTicket);
+
+    return newUri
+}
+
 async function getCookieFromUriAndSave(uri) {
     if (uri == null) return 0;
 
@@ -43,6 +80,9 @@ async function getCookieFromUriAndSave(uri) {
     console.log("Saved Roblox Cookie");
 }
 
+getCsrf();
+
 module.exports = {
     getCookieFromUriAndSave,
+    recreateUri,
 }
