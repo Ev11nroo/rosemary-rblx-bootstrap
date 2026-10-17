@@ -2,12 +2,26 @@ const { check } = require("./downloader");
 const { runClient } = require("./runner");
 
 let uri = "";
+let updateOnly = false;
 let shouldDoStudio = false;
 
-if (process.argv[2] == "client" || process.argv[2] == null) {
-    shouldDoStudio = false;
-} else if (process.argv[2] == "studio") {
-    shouldDoStudio = true;
+switch (process.argv[2]) {
+    case "update-player":
+        updateOnly = true;
+        shouldDoStudio = false;
+        break;
+    case "update-studio":
+        updateOnly = true;
+        shouldDoStudio = true;
+        break;
+
+    case "studio":
+        shouldDoStudio = true;
+        break;
+    case "player":
+    default:
+        shouldDoStudio = false;
+        break;
 }
 
 if (process.argv[3] != null) {
@@ -16,5 +30,5 @@ if (process.argv[3] != null) {
 
 (async () => {
     await check(shouldDoStudio);
-    await runClient(uri, shouldDoStudio);
+    if (!updateOnly) await runClient(uri, shouldDoStudio);
 })();

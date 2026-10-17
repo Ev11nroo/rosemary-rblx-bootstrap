@@ -6,6 +6,8 @@
   "scripts": {
     "player": "node index.js player",
     "studio": "node index.js studio",
+    "update-player": "node index.js update-player",
+    "update-studio": "node index.js update-studio",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
