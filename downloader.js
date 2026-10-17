@@ -1,4 +1,5 @@
 const fs = require("fs");
+const config = require("./config.json");
 let consts = {};
 
 try {
@@ -24,7 +25,29 @@ let downloadStudio = false;
 // get version from https://clientsettingscdn.roblox.com/v2/client-version/MacPlayer
 // then download compressed from https://setup.rbxcdn.com/mac/<version>-RobloxPlayer.zip
 
-async function getVersionHash() {
+async function getChannel() {
+    let request = null;
+
+    const options = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Cookie": `${config.cookie}`
+        }
+    };
+
+    if (downloadStudio) {
+        request = await fetch("https://clientsettings.roblox.com/v2/user-channel/MacStudio", options);
+    } else {
+        request = await fetch("https://clientsettings.roblox.com/v2/user-channel/MacPlayer", options);
+    }
+
+    const data = await request.json();
+
+    return data.channelName;
+}
+
+async function getVersionHash(channel) {
     let request = null;
 
     if (downloadStudio) {
