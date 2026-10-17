@@ -36,8 +36,8 @@ async function getCookieFromUriAndSave(uri) {
     const request = await fetch("https://auth.roblox.com/v1/authentication-ticket/redeem", options);
     const cookie = trimCookie(await request.headers.get("set-cookie"));
 
-    let conifg = require("./config.json");
-    conifg.cookie = cookie;
+    let config = require("./config.json");
+    config.cookie = cookie;
     fs.writeFile("./config.json", JSON.stringify(config, null, 4), (err) => { if (err) console.log(err); });
 
     console.log("Saved Roblox Cookie");
