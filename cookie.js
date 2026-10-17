@@ -80,8 +80,6 @@ async function getCookieFromUriAndSave(uri) {
     console.log("Saved Roblox Cookie");
 }
 
-getCsrf();
-
 module.exports = {
     getCookieFromUriAndSave,
     recreateUri,
