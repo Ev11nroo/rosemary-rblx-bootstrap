@@ -17,7 +17,7 @@ function getAuthTicketFromUri(uri) {
     return uri;
 }
 
-async function getCookieFromUri(uri) {
+async function getCookieFromUriAndSave(uri) {
     if (uri == null) return 0;
 
     const authTicket = getAuthTicketFromUri(uri);
@@ -34,4 +34,9 @@ async function getCookieFromUri(uri) {
     };
 
     const request = await fetch("https://auth.roblox.com/v1/authentication-ticket/redeem", options);
+    const cookie = trimCookie(await request.headers.get("set-cookie"));
+
+    let conifg = require("./config.json");
+    conifg.cookie = cookie;
+    fs.writeFile("./config.json", JSON.stringify(config, null, 4), (err) => { if (err) console.log(err); });
 }
