@@ -39,6 +39,8 @@ async function getCookieFromUriAndSave(uri) {
     let conifg = require("./config.json");
     conifg.cookie = cookie;
     fs.writeFile("./config.json", JSON.stringify(config, null, 4), (err) => { if (err) console.log(err); });
+
+    console.log("Saved Roblox Cookie");
 }
 
 module.exports = {
